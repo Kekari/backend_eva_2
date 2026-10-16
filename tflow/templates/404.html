@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Página no encontrada — TaskFlow{% endblock %}
+
+{% block estilos %}
+  <style>
+    :root {
+      --ink: #282238;
+      --muted: #777382;
+      --purple: #7655d9;
+      --purple-dark: #5c3cb9;
+      --line: #eae7ef;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: #fcfbfe;
+      color: var(--ink);
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    a:focus-visible {
+      outline: 3px solid #b8a4ef;
+      outline-offset: 5px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 34px;
+    }
+
+    .header { border-bottom: 1px solid var(--line); }
+    .nav { min-height: 85px; display: flex; align-items: center; }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+
+    .brand-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      width: 33px;
+      height: 35px;
+      border-radius: 10px;
+      background: var(--purple);
+      transform: rotate(-3deg);
+    }
+
+    .brand-icon i { width: 5px; height: 17px; background: white; border-radius: 2px; }
+    .brand-icon i:nth-child(2) { height: 12px; align-self: flex-start; margin-top: 8px; }
+
+    main {
+      flex: 1;
+      display: grid;
+      place-items: center;
+      padding: 64px 24px;
+      background: radial-gradient(ellipse at center, #eee7fc 0%, transparent 65%);
+    }
+
+    .error-card {
+      width: 100%;
+      max-width: 620px;
+      padding: 42px 34px 48px;
+      border: 1px solid #e7e1f1;
+      border-radius: 18px;
+      background: white;
+      box-shadow: 0 16px 55px #3e286e12;
+      text-align: center;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 5px 12px;
+      border: 1px solid #e5ddf6;
+      border-radius: 30px;
+      background: #f4f0fd;
+      color: #7257a7;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .error-code {
+      margin: 12px 0;
+      color: var(--purple);
+      font-size: clamp(88px, 20vw, 128px);
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -6px;
+    }
+
+    h1 { margin: 0 0 16px; font-size: 30px; line-height: 1.2; letter-spacing: -1px; }
+    .description { max-width: 390px; margin: 0 auto 28px; color: var(--muted); font-size: 15px; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 21px;
+      border-radius: 9px;
+      background: var(--purple);
+      color: white;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .btn:hover { background: var(--purple-dark); }
+    .footer { border-top: 1px solid var(--line); padding: 22px; text-align: center; }
+    .footer p { margin: 0; color: var(--muted); font-size: 12px; }
+
+    @media (max-width: 700px) {
+      .container { padding: 0 22px; }
+      .nav { min-height: 72px; }
+      main { padding: 36px 20px; }
+      .error-card { padding: 30px 22px 36px; }
+      h1 { font-size: 26px; }
+    }
+  </style>
+{% endblock %}
+
+{% block contenido %}
+    <section class="error-card" aria-labelledby="error-title">
+      <span class="eyebrow">Un pequeño desvío en el camino</span>
+      <p class="error-code">404</p>
+      <h1 id="error-title">Esta página no está en el tablero.</h1>
+      <p class="description">La página que buscas no existe o cambió de lugar. Vuelve al inicio y sigue dando forma a tus ideas.</p>
+      <a class="btn" href="{% url 'base' %}"><span aria-hidden="true">←</span> Volver al inicio</a>
+    </section>
+  
+{% endblock %}
