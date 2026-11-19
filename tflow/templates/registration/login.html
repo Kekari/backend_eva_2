@@ -1,0 +1,15 @@
+{% extends 'tflow/base_mantenimiento.html' %}
+{% block titulo %}Iniciar sesión — TaskFlow{% endblock %}
+{% block contenido %}
+<section class="container mantenimiento autenticacion">
+  <h3>Iniciar sesión</h3>
+  <form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ next }}">
+    {% include 'registration/campos.html' %}
+    <button class="btn btn-primary" type="submit">Iniciar sesión</button>
+  </form>
+  <p class="mt-3"><a href="{% url 'registro' %}">Crear una cuenta</a></p>
+  <p><a href="{% url 'password_reset' %}">¿Olvidaste tu contraseña?</a></p>
+</section>
+{% endblock %}

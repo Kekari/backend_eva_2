@@ -178,3 +178,47 @@ Cuando termines de trabajar, puedes salir del ambiente virtual con:
 ```powershell
 deactivate
 ```
+
+
+## Listados y formularios web
+
+Adaptados de las vistas y plantillas del proyecto de clases del profesor Erick Bailey Rebolledo: https://github.com/baileytorch/IEI_N4_C1.
+
+- Tableros: http://127.0.0.1:8000/tflow/grupo_tableros/listado_tableros
+- Agregar tablero: http://127.0.0.1:8000/tflow/grupo_tableros/crear_tablero
+- Tareas: http://127.0.0.1:8000/tflow/grupo_tareas/listado_tareas
+- Agregar tarea: http://127.0.0.1:8000/tflow/grupo_tareas/crear_tarea
+
+Puedes entrar desde el enlace **Mantenimiento** de la página principal. Los listados muestran los datos en tablas y tarjetas. Usa **Buscar**, los encabezados para ordenar, el selector de cantidad de registros y la paginación de DataTables.
+
+Para agregar un tablero, elige un usuario existente. Para agregar una tarea, elige un tablero existente. Completa los campos y pulsa **Guardar**; el registro se guarda en MySQL y vuelve al listado. **Cancelar** permite volver sin guardar.
+
+Se utilizan ListView, CreateView, ModelForm y los mismos archivos de Bootstrap Flatly, jQuery y DataTables del profesor, guardados en `static/`. La API conserva sus rutas anteriores. Sobre la adaptación de los listados y la creación se completa el CRUD manual con edición y eliminación, además de las sesiones del punto 21 del README del profesor.
+
+El modo de desarrollo está en `DEBUG = True`, igual que en la configuración actual del profesor, para que `python manage.py runserver` sirva los archivos estáticos en el puerto 8000. La plantilla 404 personalizada se conserva y se muestra al usar `DEBUG = False`.
+
+
+## Registro, sesiones y CRUD completo
+
+- Crear cuenta: http://127.0.0.1:8000/registro/
+- Iniciar sesión: http://127.0.0.1:8000/login/
+- Recuperar contraseña: http://127.0.0.1:8000/accounts/password_reset/
+- Cambiar contraseña: usa el enlace del menú después de iniciar sesión.
+
+Al registrarte se guarda tu cuenta de Django y se inicia la sesión. Los listados, formularios y la API requieren una sesión activa. Para salir, usa **Cerrar sesión**: ese botón envía un formulario protegido y limpia la sesión.
+
+Las sesiones se guardan en la base de datos, duran una hora y su cookie expira al cerrar el navegador. El mantenimiento continúa siendo compartido entre las cuentas autenticadas, como en la aplicación de clases; no se añadieron reglas particulares de propiedad.
+
+Las tablas de tableros y tareas incluyen **Editar** y **Eliminar**. La eliminación pide confirmación y solo se ejecuta al enviar el formulario. Al eliminar un tablero también se eliminan sus tareas.
+
+La recuperación usa el correo de la cuenta. En desarrollo, el enlace aparece en la terminal donde se ejecuta Django; no se envían correos reales. Los usuarios anteriores sin correo pueden completarlo desde el administrador. Un envío real necesitaría configurar un servidor de correo.
+
+La pantalla principal conserva los tableros de demostración del navegador. Para crear o modificar los registros de MySQL usa **Mantenimiento**. El antiguo acceso simulado de esa pantalla se reemplazó por el inicio de sesión real.
+
+Para ejecutar las pruebas sin tocar MySQL ni avanzar sus ID:
+
+```powershell
+python manage.py test --settings=drf.test_settings
+```
+
+El detalle por archivo está en [CAMBIOS_README.md](CAMBIOS_README.md).

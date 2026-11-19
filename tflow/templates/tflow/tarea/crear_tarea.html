@@ -1,0 +1,7 @@
+{% extends 'tflow/base_mantenimiento.html' %}
+
+{% block titulo %}Agregar tarea — TaskFlow{% endblock %}
+
+{% block contenido %}
+{% include 'tflow/formulario.html' with titulo='Agregar tarea' volver='listado_tareas' %}
+{% endblock %}

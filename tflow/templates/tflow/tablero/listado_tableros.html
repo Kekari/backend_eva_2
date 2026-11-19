@@ -1,0 +1,39 @@
+{% extends 'tflow/base_mantenimiento.html' %}
+{% load static %}
+
+{% block titulo %}Listado de tableros — TaskFlow{% endblock %}
+
+{% block contenido %}
+<section class="container mantenimiento">
+  <h3>Listado de tableros</h3>
+  <a class="btn btn-primary mb-3" href="{% url 'crear_tablero' %}">Agregar tablero</a>
+  <div class="tabla-contenedor">
+    <table id="tableros" class="table table-hover dt-left">
+      <thead><tr><th scope="col">ID</th><th scope="col">Título</th><th scope="col">Descripción</th><th scope="col">Usuario</th><th scope="col">Color</th><th scope="col">Creación</th><th scope="col">Actualización</th><th scope="col" data-dt-order="disable">Acciones</th></tr></thead>
+      <tbody>
+        {% for registro in object_list %}
+          <tr><td>{{ registro.id|default_if_none:'' }}</td><td>{{ registro.titulo|default_if_none:'' }}</td><td>{{ registro.descripcion|default_if_none:'' }}</td><td>{{ registro.usuario|default_if_none:'' }}</td><td>{{ registro.get_color_display|default_if_none:'' }}</td><td data-order="{{ registro.created_at|date:'c' }}">{{ registro.created_at|date:'d/m/Y H:i' }}</td><td data-order="{{ registro.updated_at|date:'c' }}">{{ registro.updated_at|date:'d/m/Y H:i' }}</td><td class="acciones-registro"><a href="{% url 'editar_tablero' registro.pk %}">Editar</a> <a class="text-danger" href="{% url 'eliminar_tablero' registro.pk %}">Eliminar</a></td></tr>
+        {% endfor %}
+      </tbody>
+      <tfoot><tr><th>ID</th><th>Título</th><th>Descripción</th><th>Usuario</th><th>Color</th><th>Creación</th><th>Actualización</th><th>Acciones</th></tr></tfoot>
+    </table>
+  </div>
+  <div class="row row-cols-1 row-cols-md-3 g-4 mt-3">
+    {% for registro in object_list %}
+      <div class="col">
+        <div class="card h-100">
+          <div class="card-header">{{ registro.id }} · {{ registro.titulo }}</div>
+          <div class="card-body"><h5 class="card-title">{{ registro.titulo }}</h5><ul class="datos-registro"><li>ID: {{ registro.id|default_if_none:'' }}</li><li>Título: {{ registro.titulo|default_if_none:'' }}</li><li>Descripción: {{ registro.descripcion|default_if_none:'' }}</li><li>Usuario: {{ registro.usuario|default_if_none:'' }}</li><li>Color: {{ registro.get_color_display|default_if_none:'' }}</li><li>Creación: {{ registro.created_at|date:'d/m/Y H:i' }}</li><li>Actualización: {{ registro.updated_at|date:'d/m/Y H:i' }}</li></ul></div>
+          <div class="card-footer text-body-secondary">TaskFlow · tablero</div>
+        </div>
+      </div>
+    {% empty %}
+      <div class="col"><div class="card"><div class="card-body"><h5>No hay datos</h5><p>No se han encontrado tableros.</p></div></div></div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
+
+{% block scriptPagina %}
+<script src="{% static 'js/tflow/tableros/tableros.js' %}"></script>
+{% endblock %}

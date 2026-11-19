@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block estilos %}
+<link rel="stylesheet" href="{% static 'css/flatly.css' %}">
+<link rel="stylesheet" href="{% static 'css/datatables.css' %}">
+<link rel="stylesheet" href="{% static 'css/mantenimiento.css' %}">
+{% endblock %}
+
+{% block navegacion %}
+<div class="mantenimiento-links">
+  <a href="{% url 'base' %}">Inicio</a>
+  <a href="{% url 'listado_tableros' %}">Tableros</a>
+  <a href="{% url 'listado_tareas' %}">Tareas</a>
+</div>
+{% include 'tflow/sesion.html' %}
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+<script src="{% static 'js/jquery_v4.0.0.js' %}"></script>
+<script src="{% static 'js/datatables.js' %}"></script>
+<script src="{% static 'js/datatables_default.js' %}"></script>
+{% block scriptPagina %}{% endblock %}
+{% endblock %}

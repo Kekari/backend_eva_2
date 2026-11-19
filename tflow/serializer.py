@@ -6,6 +6,7 @@ class TableroSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tablero
         fields = '__all__'
+        read_only_fields = ['usuario']
 
 
 class TareaSerializer(serializers.ModelSerializer):

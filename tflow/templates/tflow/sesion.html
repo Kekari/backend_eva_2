@@ -1,0 +1,13 @@
+<div class="sesion-links">
+  {% if request.user.is_authenticated %}
+    <span class="sesion-user">{{ request.user.username }}</span>
+    <a href="{% url 'password_change' %}">Cambiar contraseña</a>
+    <form action="{% url 'logout' %}" method="post">
+      {% csrf_token %}
+      <button class="text-btn" type="submit">Cerrar sesión</button>
+    </form>
+  {% else %}
+    <a class="text-btn" href="{% url 'login' %}">Iniciar sesión</a>
+    <a class="text-btn" href="{% url 'registro' %}">Registrarse</a>
+  {% endif %}
+</div>

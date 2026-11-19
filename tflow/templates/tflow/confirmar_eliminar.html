@@ -1,0 +1,11 @@
+<section class="container mantenimiento">
+  <h3>Eliminar {{ tipo }}</h3>
+  <p>¿Quieres eliminar «{{ object }}»?</p>
+  {% if tipo == 'tablero' %}<p>También se eliminarán las tareas de este tablero.</p>{% endif %}
+  <p>Esta acción no se puede deshacer.</p>
+  <form method="post">
+    {% csrf_token %}
+    <button class="btn btn-danger" type="submit">Sí, eliminar</button>
+    <a class="btn btn-secondary" href="{% url volver %}">Cancelar</a>
+  </form>
+</section>

@@ -1,0 +1,26 @@
+/* Ajustes de TaskFlow sobre el tema Flatly usado por el profesor. */
+body{background:#fff;color:#172c40;font-family:Arial,"Segoe UI",sans-serif;font-size:14px;line-height:1.5}
+.container{max-width:1140px;width:100%;padding-right:24px;padding-left:24px}
+.header{background:#2c3e50;border:0;position:static;color:white}
+.header .nav{min-height:56px;height:auto;display:flex;justify-content:space-between;gap:20px;padding-top:10px;padding-bottom:10px;flex-wrap:wrap}
+.header .brand{color:white;font-size:20px;letter-spacing:0}
+.header .brand-icon{width:28px;height:29px;background:#18bc9c;transform:none}
+.mantenimiento-links{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.mantenimiento-links a{color:white;text-decoration:none;font-size:14px}
+.mantenimiento-links a:hover{text-decoration:underline}
+.mantenimiento{padding-top:26px;padding-bottom:40px;min-height:65vh}
+.mantenimiento h3{font-size:27px;font-weight:400;letter-spacing:0;margin:0 0 24px}
+.tabla-contenedor{overflow-x:auto;padding-bottom:6px}
+.mantenimiento .table{font-size:13px;min-width:740px;width:100%!important}
+.mantenimiento .table th,.mantenimiento .table td{vertical-align:top;overflow-wrap:anywhere;max-width:260px}
+.mantenimiento .table td:nth-child(3){min-width:130px}
+.mantenimiento .card{font-size:13px;overflow-wrap:anywhere}
+.mantenimiento .card-title{font-size:17px}
+.datos-registro{padding-left:19px;margin-bottom:0}
+.datos-registro li{margin-bottom:5px;white-space:pre-line}
+.formulario-mantenimiento{max-width:850px}
+.acciones-formulario{display:flex;gap:10px;margin-top:24px}
+.formulario-mantenimiento .errorlist{color:#a82136}
+.footer .brand{color:#2c3e50}
+.footer p{font-size:12px}
+@media(max-width:600px){.container{padding-left:18px;padding-right:18px}.header .nav{gap:15px}.mantenimiento-links{gap:18px}.mantenimiento h3{font-size:23px}}

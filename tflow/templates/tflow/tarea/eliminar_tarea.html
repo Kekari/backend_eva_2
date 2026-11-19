@@ -1,0 +1,5 @@
+{% extends 'tflow/base_mantenimiento.html' %}
+{% block titulo %}Eliminar tarea — TaskFlow{% endblock %}
+{% block contenido %}
+{% include 'tflow/confirmar_eliminar.html' with tipo='tarea' volver='listado_tareas' %}
+{% endblock %}
