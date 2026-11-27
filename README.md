@@ -156,6 +156,8 @@ Para probar se puede ingresar a http://127.0.0.1:8000/tflow/tareas/1/.
 - **PATCH** permite cambiar solo algunos campos. Por ejemplo, enviar `{"estado": 2}` cambia una tarea a Completado.
 - **DELETE** elimina el registro seleccionado.
 
+En **Mantenimiento > Tableros**, guardar una edición envía `PATCH` y confirmar una eliminación envía `DELETE` a la API. Al ejecutar `python manage.py runserver`, esos verbos aparecen en la terminal junto a las rutas solicitadas. Estas acciones siguen las reglas de la API: solo puedes modificarlos si pertenecen a la cuenta con sesión iniciada y no puedes cambiar su propietario desde la edición.
+
 ## 9. Página principal y error 404
 
 La página principal es una demostración visual de TaskFlow. Permite crear tableros, agregar tareas, cambiar sus estados y eliminar los tableros creados.

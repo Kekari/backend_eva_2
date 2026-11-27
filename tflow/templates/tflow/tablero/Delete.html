@@ -1,0 +1,10 @@
+{% extends 'tflow/base_mantenimiento.html' %}
+{% load static %}
+{% block titulo %}Eliminar tablero — TaskFlow{% endblock %}
+{% block contenido %}
+{% url 'tablero-detail' object.pk as api_url %}
+{% include 'tflow/confirmar_eliminar.html' with tipo='tablero' volver='listado_tableros' api_url=api_url api_method='DELETE' %}
+{% endblock %}
+{% block scriptPagina %}
+<script src="{% static 'js/tflow/tableros/api.js' %}"></script>
+{% endblock %}

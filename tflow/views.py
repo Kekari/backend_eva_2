@@ -112,7 +112,7 @@ class TareaUpdateView(LoginRequiredMixin, UpdateView):
 
 class TableroDeleteView(LoginRequiredMixin, DeleteView):
     model = Tablero
-    template_name = 'tflow/tablero/eliminar_tablero.html'
+    template_name = 'tflow/tablero/Delete.html'
     success_url = reverse_lazy('listado_tableros')
     http_method_names = ['get', 'post', 'head', 'options']
 

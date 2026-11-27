@@ -3,8 +3,9 @@
   <p>¿Quieres eliminar «{{ object }}»?</p>
   {% if tipo == 'tablero' %}<p>También se eliminarán las tareas de este tablero.</p>{% endif %}
   <p>Esta acción no se puede deshacer.</p>
-  <form method="post">
+  <form method="post"{% if api_method %} data-api-method="{{ api_method }}" data-api-url="{{ api_url }}" data-success-url="{% url volver %}"{% endif %}>
     {% csrf_token %}
+    {% if api_method %}<p class="text-danger" data-api-feedback aria-live="assertive" hidden></p>{% endif %}
     <button class="btn btn-danger" type="submit">Sí, eliminar</button>
     <a class="btn btn-secondary" href="{% url volver %}">Cancelar</a>
   </form>

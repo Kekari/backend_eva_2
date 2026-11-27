@@ -1,3 +1,5 @@
+import json
+
 from django.contrib.auth import get_user_model
 from django.test import Client, TestCase, override_settings
 
@@ -59,17 +61,44 @@ class ListadosTests(TestCase):
 
     def test_editar_y_eliminar_tablero(self):
         ruta = f'/tflow/grupo_tableros/editar_tablero/{self.tablero.pk}'
-        self.assertEqual(self.client.get(ruta).status_code, 200)
+        response = self.client.get(ruta)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'data-api-method="PATCH"')
+        self.assertContains(response, f'data-api-url="/tflow/tableros/{self.tablero.pk}/"')
+        self.assertContains(response, 'js/tflow/tableros/api.js')
         response = self.client.post(ruta, {'usuario': self.usuario.pk, 'titulo': 'Editado', 'descripcion': '', 'color': 'green'})
         self.assertRedirects(response, '/tflow/grupo_tableros/listado_tableros')
         self.tablero.refresh_from_db()
         self.assertEqual(self.tablero.titulo, 'Editado')
         ruta = f'/tflow/grupo_tableros/eliminar_tablero/{self.tablero.pk}'
-        self.assertContains(self.client.get(ruta), 'Cancelar')
+        response = self.client.get(ruta)
+        self.assertContains(response, 'Cancelar')
+        self.assertContains(response, 'data-api-method="DELETE"')
         self.assertTrue(Tablero.objects.filter(pk=self.tablero.pk).exists())
         self.assertEqual(self.client.delete(ruta).status_code, 405)
         self.assertRedirects(self.client.post(ruta), '/tflow/grupo_tableros/listado_tableros')
         self.assertFalse(Tarea.objects.filter(pk=self.tarea.pk).exists())
+
+    def test_api_tablero_acepta_patch_y_delete(self):
+        client = Client(enforce_csrf_checks=True, HTTP_HOST='127.0.0.1')
+        client.force_login(self.usuario)
+        detalle = f'/tflow/tableros/{self.tablero.pk}/'
+        client.get(f'/tflow/grupo_tableros/editar_tablero/{self.tablero.pk}')
+        csrf_token = client.cookies['csrftoken'].value
+
+        response = client.patch(
+            detalle,
+            json.dumps({'titulo': 'Actualizado por PATCH'}),
+            content_type='application/json',
+            HTTP_X_CSRFTOKEN=csrf_token,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.tablero.refresh_from_db()
+        self.assertEqual(self.tablero.titulo, 'Actualizado por PATCH')
+
+        response = client.delete(detalle, HTTP_X_CSRFTOKEN=csrf_token)
+        self.assertEqual(response.status_code, 204)
+        self.assertFalse(Tablero.objects.filter(pk=self.tablero.pk).exists())
 
     def test_editar_y_eliminar_tarea(self):
         ruta = f'/tflow/grupo_tareas/editar_tarea/{self.tarea.pk}'
