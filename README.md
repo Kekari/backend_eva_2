@@ -52,7 +52,7 @@ python -m pip install -r requirements.txt
 
 ## 4. Preparar MySQL
 
-El archivo [scripts/configurar_mysql.sql](scripts/configurar_mysql.sql) contiene los comandos para:
+El archivo [sciptsbd.sql](sciptsbd.sql) contiene los comandos para:
 
 - Crear la base de datos `tflow`.
 - Crear el usuario MySQL `admin`.
@@ -197,7 +197,7 @@ Para agregar un tablero, elige un usuario existente. Para agregar una tarea, eli
 
 Se utilizan ListView, CreateView, ModelForm y los mismos archivos de Bootstrap Flatly, jQuery y DataTables del profesor, guardados en `static/`. La API conserva sus rutas anteriores. Sobre la adaptación de los listados y la creación se completa el CRUD manual con edición y eliminación, además de las sesiones del punto 21 del README del profesor.
 
-El modo de desarrollo está en `DEBUG = True`, igual que en la configuración actual del profesor, para que `python manage.py runserver` sirva los archivos estáticos en el puerto 8000. La plantilla 404 personalizada se conserva y se muestra al usar `DEBUG = False`.
+La configuración actual tiene `DEBUG = False`. Django ejecuta la plantilla 404 personalizada en ese modo. Como `runserver` no sirve archivos estáticos con `DEBUG = False`, puedes usar temporalmente `runserver --insecure` o cambiar `DEBUG = True` solo durante el desarrollo local si necesitas comprobar los estilos desde el navegador.
 
 
 ## Registro, sesiones y CRUD completo
@@ -213,7 +213,7 @@ Las sesiones se guardan en la base de datos, duran una hora y su cookie expira a
 
 Las tablas de tableros y tareas incluyen **Editar** y **Eliminar**. La eliminación pide confirmación y solo se ejecuta al enviar el formulario. Al eliminar un tablero también se eliminan sus tareas.
 
-La recuperación usa el correo de la cuenta. En desarrollo, el enlace aparece en la terminal donde se ejecuta Django; no se envían correos reales. Los usuarios anteriores sin correo pueden completarlo desde el administrador. Un envío real necesitaría configurar un servidor de correo.
+La recuperación usa el correo de la cuenta. Actualmente no hay una configuración activa de `EMAIL_BACKEND` en el proyecto, así que debe configurarse el backend de consola para ver el enlace en terminal o un servicio SMTP para enviarlo realmente. Los usuarios anteriores sin correo pueden completarlo desde el administrador.
 
 La pantalla principal conserva los tableros de demostración del navegador. Para crear o modificar los registros de MySQL usa **Mantenimiento**. El antiguo acceso simulado de esa pantalla se reemplazó por el inicio de sesión real.
 
@@ -223,4 +223,3 @@ Para ejecutar las pruebas sin tocar MySQL ni avanzar sus ID:
 python manage.py test --settings=drf.test_settings
 ```
 
-El detalle por archivo está en [CAMBIOS_README.md](CAMBIOS_README.md).
